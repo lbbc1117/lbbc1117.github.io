@@ -1,7 +1,11 @@
 ---
 layout: post
-title: 标题
-description:副标题
+title: 这里是题目
+tags:
+- 标签1
+- 标签2
+categories: 分类
+description: 描述。
 ---
 
 ## Welcome to another page
