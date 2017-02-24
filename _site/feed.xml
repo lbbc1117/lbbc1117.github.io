@@ -5,8 +5,8 @@
     <description>false</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Feb 2017 13:12:53 +0800</pubDate>
-    <lastBuildDate>Fri, 24 Feb 2017 13:12:53 +0800</lastBuildDate>
+    <pubDate>Fri, 24 Feb 2017 16:51:48 +0800</pubDate>
+    <lastBuildDate>Fri, 24 Feb 2017 16:51:48 +0800</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
     
       <item>
@@ -23,65 +23,143 @@
       </item>
     
       <item>
-        <title>Aliyun Deployment</title>
-        <description>
+        <title>阿里云应用部署手记</title>
+        <description>&lt;p&gt;softmind阿里云部署备忘&lt;/p&gt;
+
+&lt;h4 id=&quot;阿里云安装mogodb-ubuntu1604&quot;&gt;阿里云安装Mogodb Ubuntu16.04&lt;/h4&gt;
+
+&lt;p&gt;删除应用安装配置文件     &lt;a href=&quot;https://yq.aliyun.com/ask/47027/?order=vote_num&amp;amp;p=1&quot;&gt;&lt;em&gt;apt代理问题会导致403&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;rm /etc/apt/apt.conf&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;添加key     &lt;a href=&quot;https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/&quot;&gt;&lt;em&gt;mongodb官方教程&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;指定下载源&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&amp;quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;更新下载源&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get update&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;安装mongodb&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get install -y mongodb-org&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;在指定位置新建mongodb数据目录&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;mkdir /data
+mkdir /data/db&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;启动mongod&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo mongod&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;启动mongo客户端&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;mongo&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;阿里云安装mysql-ubuntu1604&quot;&gt;阿里云安装mysql Ubuntu16.04&lt;/h4&gt;
+
+&lt;p&gt;更新安装源&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get update&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;安装mysql（中途设置用户）&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;sudo apt install mysql-server&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;登录mysql&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;mysql -u root -p&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;阿里云部署-flask-项目&quot;&gt;阿里云部署 Flask 项目&lt;/h4&gt;
+
+&lt;p&gt;新建代码共享服务器（远端）&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# 项目存放在~目录下&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
+mkdir &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;app name&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;.git
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;app name&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;.git
+&lt;span class=&quot;c1&quot;&gt;# 这是一个裸仓库，专门用于存放代码&lt;/span&gt;
+git init --bare&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;配置 git hooks 并为对应脚本文件添加执行权限 &lt;a href=&quot;http://stackoverflow.com/questions/279169/deploy-a-project-using-git-push/3387030#3387030&quot;&gt;&lt;em&gt;参考1&lt;/em&gt;&lt;/a&gt; &lt;a href=&quot;http://www.tuicool.com/articles/3QRB7jU&quot;&gt;&lt;em&gt;参考2&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; hooks
+&lt;span class=&quot;c1&quot;&gt;# 编辑代码更新后需要自动执行的脚本&lt;/span&gt;
+vim post-update
+&lt;span class=&quot;c1&quot;&gt;# 赋予执行权限&lt;/span&gt;
+chmod +x .git/hooks/post-update&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;初始化本地 Git 代码库 &lt;a href=&quot;http://blog.csdn.net/zhyh1435589631/article/details/51946439#211-配置nginx-服务器脚本&quot;&gt;&lt;em&gt;Flask部署&lt;/em&gt;&lt;/a&gt; &lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;&lt;em&gt;Git&lt;/em&gt;&lt;/a&gt; &lt;a href=&quot;http://askubuntu.com/questions/786272/why-does-installing-node-6-x-on-ubuntu-16-04-actually-install-node-4-2-6&quot;&gt;&lt;em&gt;Ubuntu安装最新版nodejs&lt;/em&gt;&lt;/a&gt; &lt;a href=&quot;http://www.cnblogs.com/jiayongji/p/5771444.html&quot;&gt;&lt;em&gt;vim&lt;/em&gt;&lt;/a&gt; &lt;a href=&quot;http://man.linuxde.net/cp&quot;&gt;&lt;em&gt;shell&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;to application root&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+git init
+&lt;span class=&quot;c1&quot;&gt;# 配置 remote 源，设置为远端的 [app name].git，并命名为 production&lt;/span&gt;
+vim .git/config&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;配置本地库的 .gitignore &lt;a href=&quot;http://stackoverflow.com/questions/11451535/gitignore-is-not-working&quot;&gt;&lt;em&gt;Not working&lt;/em&gt;&lt;/a&gt; &lt;a href=&quot;http://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore&quot;&gt;&lt;em&gt;Show ignored&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;vim .gitignore
+&lt;span class=&quot;c1&quot;&gt;# 以下3行命令保证.gitignore生效&lt;/span&gt;
+git rm -r --cached .
+git add .
+git commit -m &lt;span class=&quot;s2&quot;&gt;&amp;quot;fixed untracked files&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 查看指定路径下被忽略的文件或目录&lt;/span&gt;
+git check-ignore -v *
+&lt;span class=&quot;c1&quot;&gt;# 添加所有文件到缓冲区&lt;/span&gt;
+git add *
+&lt;span class=&quot;c1&quot;&gt;# 提交缓冲区所有文件到仓库&lt;/span&gt;
+git commit -m &lt;span class=&quot;s1&quot;&gt;&amp;#39;first commit&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 把最新的代码push到远端仓库 &lt;/span&gt;
+git push production&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;项目部署（远端）(未包括服务器以及反向代理设置)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;to application root&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+git init
+&lt;span class=&quot;c1&quot;&gt;# 将remote设置为softmind.git, 并命名为 code&lt;/span&gt;
+vim .git/config
+vim .gitignore
+git rm -r --cached .
+git add .
+git commit -m &lt;span class=&quot;s2&quot;&gt;&amp;quot;fixed untracked files&amp;quot;&lt;/span&gt;
+git check-ignore -v *
+git add *
+git commit -m &lt;span class=&quot;s1&quot;&gt;&amp;#39;first commit&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 把最新的代码抓取到本仓库&lt;/span&gt;
+git pull code
+&lt;span class=&quot;c1&quot;&gt;# 新建python虚拟环境&lt;/span&gt;
+virtualenv venv
+&lt;span class=&quot;c1&quot;&gt;# 安装python依赖的库&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 会遇到M2Crypto在venv环境下无法安装的问题，可在全局环境下安装，然后将二进制文件拷贝到venv对应目录下（http://stackoverflow.com/questions/10547332/install-m2crypto-on-a-virtualenv-without-system-packages）&lt;/span&gt;
+pip install -r requirements.txt
+&lt;span class=&quot;c1&quot;&gt;# 进入静态文件目录&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; project/static
+&lt;span class=&quot;c1&quot;&gt;# 初始化npm (cnpm是淘宝npm镜像)&lt;/span&gt;
+cnpm install
+&lt;span class=&quot;c1&quot;&gt;# 生产环境代码编译&lt;/span&gt;
+cnpm run build
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;to application root&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 开启服务&lt;/span&gt;
+python run.py&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;hr /&gt;
+
 </description>
         <pubDate>Fri, 24 Feb 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000//2017/02/24/aliyun-deployment.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2017/02/24/aliyun-deployment.html</guid>
+        <link>http://localhost:4000//%E6%8A%80%E6%9C%AF%E6%A0%88/2017/02/24/aliyun-deployment.html</link>
+        <guid isPermaLink="true">http://localhost:4000//%E6%8A%80%E6%9C%AF%E6%A0%88/2017/02/24/aliyun-deployment.html</guid>
         
         
-      </item>
-    
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory - edit this post and re-build (or run with the &lt;code&gt;-w&lt;/code&gt; switch) to see your changes!
-To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention: YYYY-MM-DD-name-of-post.ext.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;something&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;something&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;something&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;def something(a,b):
-    return a+b
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;This is a link&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;div&amp;gt;
-    &amp;lt;a href=&quot;&quot;&amp;gt;This is a link&amp;lt;/a&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;.&lt;/p&gt;
-
-</description>
-        <pubDate>Sun, 10 Nov 2013 18:18:00 +0800</pubDate>
-        <link>http://localhost:4000//thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://localhost:4000//thriller/comedy/horror/2013/11/10/welcome-to-jekyll.html</guid>
-        
-        
-        <category>Thriller</category>
-        
-        <category>Comedy</category>
-        
-        <category>Horror</category>
+        <category>技术栈</category>
         
       </item>
     

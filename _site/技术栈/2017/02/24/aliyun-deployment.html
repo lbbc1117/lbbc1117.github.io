@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>假行僧 </title>
+    <meta name="description" content="false" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+</head>
+<body class="home-template">
+
+    <header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="/">Home</a>
+        <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">阿里云应用部署手记</h1>
+        </header>
+
+        <section class="post-meta">
+            
+                技术栈
+            
+            <time class="post-date" datetime="2017-02-24">24 Feb 2017</time>
+        </section>
+
+        <section class="post-content">
+            <p>softmind阿里云部署备忘</p>
+
+<h4 id="阿里云安装mogodb-ubuntu1604">阿里云安装Mogodb Ubuntu16.04</h4>
+
+<p>删除应用安装配置文件     <a href="https://yq.aliyun.com/ask/47027/?order=vote_num&amp;p=1"><em>apt代理问题会导致403</em></a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>rm /etc/apt/apt.conf</code></pre></figure>
+
+<p>添加key     <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/"><em>mongodb官方教程</em></a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6</code></pre></figure>
+
+<p>指定下载源</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">echo</span> <span class="s2">&quot;deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</code></pre></figure>
+
+<p>更新下载源</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>sudo apt-get update</code></pre></figure>
+
+<p>安装mongodb</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>sudo apt-get install -y mongodb-org</code></pre></figure>
+
+<p>在指定位置新建mongodb数据目录</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>mkdir /data
+mkdir /data/db</code></pre></figure>
+
+<p>启动mongod</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>sudo mongod</code></pre></figure>
+
+<p>启动mongo客户端</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>mongo</code></pre></figure>
+
+<hr />
+
+<h4 id="阿里云安装mysql-ubuntu1604">阿里云安装mysql Ubuntu16.04</h4>
+
+<p>更新安装源</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>sudo apt-get update</code></pre></figure>
+
+<p>安装mysql（中途设置用户）</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>sudo apt install mysql-server</code></pre></figure>
+
+<p>登录mysql</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>mysql -u root -p</code></pre></figure>
+
+<hr />
+
+<h4 id="阿里云部署-flask-项目">阿里云部署 Flask 项目</h4>
+
+<p>新建代码共享服务器（远端）</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># 项目存放在~目录下</span>
+<span class="nb">cd</span> ~
+mkdir <span class="o">[</span>app name<span class="o">]</span>.git
+<span class="nb">cd</span> <span class="o">[</span>app name<span class="o">]</span>.git
+<span class="c1"># 这是一个裸仓库，专门用于存放代码</span>
+git init --bare</code></pre></figure>
+
+<p>配置 git hooks 并为对应脚本文件添加执行权限 <a href="http://stackoverflow.com/questions/279169/deploy-a-project-using-git-push/3387030#3387030"><em>参考1</em></a> <a href="http://www.tuicool.com/articles/3QRB7jU"><em>参考2</em></a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> hooks
+<span class="c1"># 编辑代码更新后需要自动执行的脚本</span>
+vim post-update
+<span class="c1"># 赋予执行权限</span>
+chmod +x .git/hooks/post-update</code></pre></figure>
+
+<p>初始化本地 Git 代码库 <a href="http://blog.csdn.net/zhyh1435589631/article/details/51946439#211-配置nginx-服务器脚本"><em>Flask部署</em></a> <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000"><em>Git</em></a> <a href="http://askubuntu.com/questions/786272/why-does-installing-node-6-x-on-ubuntu-16-04-actually-install-node-4-2-6"><em>Ubuntu安装最新版nodejs</em></a> <a href="http://www.cnblogs.com/jiayongji/p/5771444.html"><em>vim</em></a> <a href="http://man.linuxde.net/cp"><em>shell</em></a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> <span class="o">[</span>to application root<span class="o">]</span>
+git init
+<span class="c1"># 配置 remote 源，设置为远端的 [app name].git，并命名为 production</span>
+vim .git/config</code></pre></figure>
+
+<p>配置本地库的 .gitignore <a href="http://stackoverflow.com/questions/11451535/gitignore-is-not-working"><em>Not working</em></a> <a href="http://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore"><em>Show ignored</em></a></p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>vim .gitignore
+<span class="c1"># 以下3行命令保证.gitignore生效</span>
+git rm -r --cached .
+git add .
+git commit -m <span class="s2">&quot;fixed untracked files&quot;</span>
+<span class="c1"># 查看指定路径下被忽略的文件或目录</span>
+git check-ignore -v *
+<span class="c1"># 添加所有文件到缓冲区</span>
+git add *
+<span class="c1"># 提交缓冲区所有文件到仓库</span>
+git commit -m <span class="s1">&#39;first commit&#39;</span>
+<span class="c1"># 把最新的代码push到远端仓库 </span>
+git push production</code></pre></figure>
+
+<p>项目部署（远端）(未包括服务器以及反向代理设置)</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> <span class="o">[</span>to application root<span class="o">]</span>
+git init
+<span class="c1"># 将remote设置为softmind.git, 并命名为 code</span>
+vim .git/config
+vim .gitignore
+git rm -r --cached .
+git add .
+git commit -m <span class="s2">&quot;fixed untracked files&quot;</span>
+git check-ignore -v *
+git add *
+git commit -m <span class="s1">&#39;first commit&#39;</span>
+<span class="c1"># 把最新的代码抓取到本仓库</span>
+git pull code
+<span class="c1"># 新建python虚拟环境</span>
+virtualenv venv
+<span class="c1"># 安装python依赖的库</span>
+<span class="c1"># 会遇到M2Crypto在venv环境下无法安装的问题，可在全局环境下安装，然后将二进制文件拷贝到venv对应目录下（http://stackoverflow.com/questions/10547332/install-m2crypto-on-a-virtualenv-without-system-packages）</span>
+pip install -r requirements.txt
+<span class="c1"># 进入静态文件目录</span>
+<span class="nb">cd</span> project/static
+<span class="c1"># 初始化npm (cnpm是淘宝npm镜像)</span>
+cnpm install
+<span class="c1"># 生产环境代码编译</span>
+cnpm run build
+<span class="nb">cd</span> <span class="o">[</span>to application root<span class="o">]</span>
+<span class="c1"># 开启服务</span>
+python run.py</code></pre></figure>
+
+<hr />
+
+
+        </section>
+
+        
+
+
+        
+
+    </article>
+
+</main>
+
+    <footer class="site-footer clearfix">
+      <section>
+        <div style="text-align:center;">本博客所有文章禁止转载</div>
+      </section>
+    </footer>
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

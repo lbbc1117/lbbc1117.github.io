@@ -1,10 +1,9 @@
 ---
 layout: default
 title: 假行僧
-cover: true
 ---
 
-<header class="main-header {% if page.cover %}" style="background-image: url({{ page.cover }}) {%else%}no-cover{% endif %}">
+<header class="main-header {% if page.no_cover %}no-cover{% endif %}">
     <nav class="main-nav overlay clearfix">
         {% if page.logo %}
             <a class="blog-logo" href="{{ site.baseurl }}">
@@ -44,7 +43,7 @@ cover: true
         <section class="post-excerpt">
             {{ post.excerpt }} <a class="read-more" href="{{ post.url }}">&raquo;</a>
         </section>
-        <footer class="post-meta">
+        <footer class="post-meta" style="margin-bottom:0;">
             {% if site.author %}
                 <img class="author-thumb" src="/assets/images/profile.png" alt="Author's profile picture" nopin="nopin" />
                 {{ site.author }}
