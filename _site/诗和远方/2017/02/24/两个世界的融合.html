@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>{{ site.name }} - {{ site.description }}</title>
-    <meta name="description" content="{{ site.meta_description}}" />
+    <title>假行僧 - false</title>
+    <meta name="description" content="false" />
 
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
@@ -17,13 +17,47 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
 
 </head>
-<body class="{% if page.post_class %}{{page.post_class}}{% else %}home-template{% endif %}">
+<body class="home-template">
 
-    {{ content }}
+    <header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="back-button icon-arrow-left" href="/">Home</a>
+        <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">两个世界的融合</h1>
+        </header>
+
+        <section class="post-meta">
+            
+                诗和远方
+            
+            <time class="post-date" datetime="2017-02-24">24 Feb 2017</time>
+        </section>
+
+        <section class="post-content">
+            
+
+        </section>
+
+        
+
+        
+
+    </article>
+
+</main>
+
     <!-- <footer class="site-footer clearfix">
       <section class="copyright">
-        <a href="{{ site.baseurl }}">{{ site.name }}</a> &copy; 
-              {{date format="YYYY"}} &bull; All rights reserved.
+        <a href="/">假行僧</a> &copy; 
+               &bull; All rights reserved.
       </section>
       <section class="poweredby">Made with Jekyll using 
         <a href="http://github.com/rosario/kasper">Kasper theme</a>
@@ -38,7 +72,7 @@
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', '{{ site.google_analytics }}']);
+      _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
       _gaq.push(['_trackPageview']);
 
       (function() {
