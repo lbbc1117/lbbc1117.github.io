@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: 这里是题目
 tags:
 - 标签1
