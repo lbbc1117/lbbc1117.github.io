@@ -3,7 +3,7 @@ description: false
 meta_description: false
 
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 logo: false
 paginate: 10
 baseurl: /
